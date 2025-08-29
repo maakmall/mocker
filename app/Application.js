@@ -1,3 +1,5 @@
+import path from "path";
+import { fileURLToPath } from "url";
 import express from "express";
 import mustacheExpress from "mustache-express";
 import router from "./routes.js";
@@ -13,7 +15,10 @@ class Application {
     this.env = process.env.APP_ENV;
     this.port = process.env.APP_PORT;
 
-    this.app.set("views", "./app/Views");
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
+    this.app.set("views", path.join(__dirname, "Views"));
     this.app.set("view engine", "html");
     this.app.engine("html", mustacheExpress());
     this.applyHandlers();
