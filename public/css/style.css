@@ -48,17 +48,6 @@ code {
   background: transparent;
 }
 
-textarea, input {
-  width: 100%;
-  max-width: 100%;
-  padding: 8px;
-  margin-top: 6px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-family: monospace;
-}
-
 button {
   background: #007bff;
   color: #fff;
@@ -78,4 +67,39 @@ button:hover {
 
 .mb-0 {
   margin-bottom: 0;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.field-row,
+.header-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: .5rem;
+  align-items: center;
+}
+
+input, select {
+  padding: .4rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.nested {
+  margin-left: 2rem;
+  padding-left: 1rem;
+  border-left: 2px dashed #ccc;
+}
+
+.remove-btn {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+}
+
+.remove-btn:hover {
+  background-color: darkred;
 }

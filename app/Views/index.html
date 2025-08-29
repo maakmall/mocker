@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="app-url" content="{{ url }}" />
     <link rel="stylesheet" href="/css/style.css" />
     <title>{{ title }}</title>
   </head>
@@ -30,7 +31,7 @@
         </p>
         <pre><code>field:namespace.method(paramKey=value,...)</code></pre>
 
-        <p>Separate one field with other using <code>;</code></p>
+        <p>Separate one field with other using <code>;</code> and you can use any HTTP Method</p>
         <p>You can also add:</p>
         <ul>
           <li><code>?c=</code> → to set the HTTP status code</li>
@@ -167,9 +168,48 @@ X-Custom: foobar
         </p>
       </section>
 
+      <section>
+        <h2>4. Schema Builder</h2>
+        <p>Build your schema dynamically and preview the output:</p>
+
+        <form>
+          <div id="fields"></div>
+          <button id="add-field">+</button>
+        </form>
+
+        <br>
+
+        <div class="code-block py-1">
+          <pre><code id="preview"></code></pre>
+        </div>
+
+        <br>
+
+        <p>Headers</p>
+        <form>
+          <div id="headers"></div>
+          <button id="add-header">+ Header</button>
+        </form>
+
+        <br>
+
+        <p>Status Code</p>
+        <form>
+          <input id="status-code" type="number" placeholder="e.g. 200" min="100" max="599">
+        </form>
+
+        <br>
+
+        <code id="api-link"></code>
+        <br><br>
+        <button id="copy-url">Copy URL</button>
+      </section>
       <p class="text-center mb-0">Created by <a href="https://instagram.com/maakmall">maakmall</a>. By me a coffee</p>
     </div>
 
+    <script>
+      const fakerModules = JSON.parse(`{{{ modules }}}`);
+    </script>
     <script src="/js/script.js"></script>
   </body>
 </html>
