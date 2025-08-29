@@ -70,7 +70,7 @@ Pass your schema as a query parameter `?s=`. Each field follows the format:
 
 ```json
 {
-  "message": "Lorem ipsum dolor sit amet consectetur.",
+  "message": "Lorem ipsum dolor sit amet.",
   "user": {
     "name": "Michael Johnson"
   }
