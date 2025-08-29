@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>{{ title }}</h1>
+
+      <!-- Intro -->
+      <section>
+        <h2>1. What is Mocker?</h2>
+        <p>
+          <strong>Mocker</strong> is a lightweight mock API generator built on
+          top of <a href="https://fakerjs.dev" target="_blank">Faker.js</a>. It
+          allows you to define response schemas dynamically using query
+          parameters.
+        </p>
+      </section>
+
+      <!-- Usage -->
+      <section>
+        <h2>2. How to Use</h2>
+        <p>
+          Simply pass your schema as a query parameter <code>?s=</code>. Each
+          field follows the format:
+        </p>
+        <pre><code>field:namespace.method(paramKey=value,...)</code></pre>
+
+        <p>Separate one field with other using <code>;</code></p>
+        <p>You can also add:</p>
+        <ul>
+          <li><code>?c=</code> → to set the HTTP status code</li>
+          <li>
+            <code>?h=</code> → to define custom headers (must be URL encoded)
+          </li>
+        </ul>
+        <p>Visit <a href="https://fakerjs.dev/api" target="_blank">Faker.js</a> documentation to see all function</p><br>
+
+        ⚠️ <em>Note:</em> The <code>helpers</code> module from Faker.js is not
+          supported.
+
+        <h3>Examples</h3>
+
+        <h4>Basic fields:</h4>
+        <code>/api?s=id:string.uuid;name:person.fullName</code>
+        <div class="code-block">
+            <pre>
+                <code>
+{
+    "id": "c9b1b2de-1234-4e12-b5f6-98f23a8a1bcd",
+    "name": "John Doe"
+}
+        </code></pre>
+        </div>
+
+        <h4>Nested fields (using dot <code>.</code>):</h4>
+        <code>/api?s=user.id:string.uuid;user.name:person.fullName</code>
+        <div class="code-block">
+        <pre><code>
+{
+    "user": {
+        "id": "9c5e2cda-5678-4eaa-b7a3-fb9a1e3a2bcd",
+        "name": "Jane Smith"
+    }
+}   
+        </code></pre>
+        </div>
+        <h4>Arrays (using <code>[N]</code>):</h4>
+        <code
+          >/api?s=items[2].id:string.uuid;items[2].title:commerce.productName</code
+        >
+        <div class="code-block">
+        <pre><code>
+{
+    "items": [
+        {
+            "id": "1d2c3b4a-aaaa-bbbb-cccc-111122223333",
+            "title": "Incredible Granite Chair"
+        },
+        {
+            "id": "4d5e6f7a-dddd-eeee-ffff-444455556666",
+            "title": "Practical Wooden Table"
+        }
+    ]
+}
+        </code></pre>
+        </div>
+
+        <h4>With parameters:</h4>
+        <code
+          >/api?s=message:lorem.sentence(5);user.name:person.fullName(sex=male)</code
+        >
+        <div class="code-block">
+        <pre><code>
+{
+    "message": "Lorem ipsum dolor sit amet consectetur.",
+    "user": {
+        "name": "Michael Johnson"
+    }
+}
+        </code></pre>
+        </div>
+
+        <h4>Complex schema:</h4>
+        <code>/api?s=message:lorem.sentence(5);meta.time:date.anytime;meta.request_id:string.uuid;data[2]id:string.uuid;data[2].name:person.fullName(sex=male);data[2].email:internet.email(firstName=Jeane,provider=vercel.com);data[2].address.street:lorem.word(length.min=5,length.max=7,strategy=fail);data[2].address.city:location.city;data[2].address.country:location.country</code>
+        <div class="code-block">
+        <pre><code>
+{
+    "message": "Aliquam sit amet ex commodo.",
+    "meta": {
+        "time": "2025-08-27T10:15:30.000Z",
+        "request_id": "a1b2c3d4-5678-90ab-cdef-1234567890ab"
+    },
+    "data": [
+        {
+            "id": "1111aaaa-bbbb-cccc-dddd-222233334444",
+            "name": "Robert Brown",
+            "email": "Jeane@example.vercel.com",
+            "address": {
+                "street": "foobar",
+                "city": "New York",
+                "country": "United States"
+            }
+        },
+        {
+            "id": "5555eeee-ffff-1111-2222-666677778888",
+            "name": "William Davis",
+            "email": "Jeane@test.vercel.com",
+            "address": {
+                "street": "bazbar",
+                "city": "Los Angeles",
+                "country": "United States"
+            }
+        }
+    ]
+}
+        </code></pre>
+        </div>
+
+        <h3>With Status Code & Headers</h3>
+        <p>Example with a <code>201</code> status code and custom headers:</p>
+        <code>/api?s=id:string.uuid;name:person.fullName&c=201&h=Content-Type%3Aapplication%2Fjson%7CX-Custom%3Afoobar</code>
+        <div class="code-block">
+        <pre><code>
+HTTP/1.1 201 Created
+Content-Type: application/json
+X-Custom: foobar
+      
+{
+    "id": "7777aaaa-2222-bbbb-3333-cccc4444dddd",
+    "name": "Emily Wilson"
+}
+        </code></pre>
+        </div>
+      </section>
+
+      <!-- Host -->
+      <section>
+        <h2>3. Host it Yourself</h2>
+        <p>
+          Need more requests or custom rules? Just clone the <a href="https://github.com/maakmall/mocker">project</a> and host it
+          yourself. 🚀
+        </p>
+      </section>
+
+      <p class="text-center mb-0">Created by <a href="https://instagram.com/maakmall">maakmall</a>. By me a coffee</p>
+    </div>
+
+    <script src="/js/script.js"></script>
+  </body>
+</html>
