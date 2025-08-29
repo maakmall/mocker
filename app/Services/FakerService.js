@@ -85,11 +85,11 @@ export default class FakerService {
 
     const mapping = {};
 
-    for (const ns of namespaces) {
+    for (const ns of namespaces.sort()) {
       if (typeof this.faker[ns] === "object" && !blacklist.includes(ns)) {
-        mapping[ns] = Object.keys(this.faker[ns]).filter(
-          (k) => typeof this.faker[ns][k] === "function"
-        );
+        mapping[ns] = Object.keys(this.faker[ns])
+          .filter((k) => typeof this.faker[ns][k] === "function")
+          .sort();
       }
     }
 

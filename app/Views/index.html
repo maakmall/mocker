@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="app-url" content="{{ url }}" />
     <link rel="stylesheet" href="/css/style.css" />
     <title>{{ title }}</title>
   </head>
@@ -167,9 +168,33 @@ X-Custom: foobar
         </p>
       </section>
 
+      <section>
+        <h2>4. Schema Builder</h2>
+        <p>Build your schema dynamically and preview the output:</p>
+
+        <form>
+          <div id="fields"></div>
+          <button id="add-field">+</button>
+        </form>
+
+        <br>
+
+        <div class="code-block py-1">
+          <pre><code id="preview"></code></pre>
+        </div>
+
+        <br>
+
+        <code id="api-link"></code>
+        <br><br>
+        <button id="copy-url">Copy URL</button>
+      </section>
       <p class="text-center mb-0">Created by <a href="https://instagram.com/maakmall">maakmall</a>. By me a coffee</p>
     </div>
 
+    <script>
+      const fakerModules = JSON.parse(`{{{ modules }}}`);
+    </script>
     <script src="/js/script.js"></script>
   </body>
 </html>
