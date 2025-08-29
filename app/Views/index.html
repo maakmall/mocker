@@ -31,7 +31,7 @@
         </p>
         <pre><code>field:namespace.method(paramKey=value,...)</code></pre>
 
-        <p>Separate one field with other using <code>;</code></p>
+        <p>Separate one field with other using <code>;</code> and you can use any HTTP Method</p>
         <p>You can also add:</p>
         <ul>
           <li><code>?c=</code> → to set the HTTP status code</li>
@@ -182,6 +182,21 @@ X-Custom: foobar
         <div class="code-block py-1">
           <pre><code id="preview"></code></pre>
         </div>
+
+        <br>
+
+        <p>Headers</p>
+        <form>
+          <div id="headers"></div>
+          <button id="add-header">+ Header</button>
+        </form>
+
+        <br>
+
+        <p>Status Code</p>
+        <form>
+          <input id="status-code" type="number" placeholder="e.g. 200" min="100" max="599">
+        </form>
 
         <br>
 

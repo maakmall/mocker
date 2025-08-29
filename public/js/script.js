@@ -2,15 +2,7 @@ const fieldsContainer = document.getElementById("fields");
 const preview = document.getElementById("preview");
 const apiLink = document.getElementById("api-link");
 const url = document.querySelector("meta[name='app-url']").content;
-
-// const fakerOptions = [
-//   "lorem.sentence",
-//   "lorem.word",
-//   "person.fullName",
-//   "number.int",
-//   "object",
-//   "array",
-// ];
+const headersContainer = document.getElementById("headers");
 
 function createField(parent = fieldsContainer) {
   const row = document.createElement("div");
@@ -162,7 +154,18 @@ function updatePreview() {
   preview.textContent = JSON.stringify(cleanSchema, null, 2);
 
   const query = schemaToQuery(schema).join(";");
-  apiLink.textContent = `${url}/api?s=${query}`;
+
+  // headers
+  const headers = buildHeaders(headersContainer);
+  const headerQuery = headers.length
+    ? `&h=${encodeURIComponent(headers.join("|"))}`
+    : "";
+
+  // status code
+  const statusCode = document.getElementById("status-code").value.trim();
+  const statusQuery = statusCode ? `&c=${encodeURIComponent(statusCode)}` : "";
+
+  apiLink.textContent = `${url}/api?s=${query}${statusQuery}${headerQuery}`;
 }
 
 document.getElementById("add-field").onclick = (e) => {
@@ -170,6 +173,14 @@ document.getElementById("add-field").onclick = (e) => {
   createField();
   updatePreview();
 };
+
+document.getElementById("add-header").onclick = (e) => {
+  e.preventDefault();
+  createHeader();
+  updatePreview();
+};
+
+document.getElementById("status-code").addEventListener("input", updatePreview);
 
 document.getElementById("copy-url").addEventListener("click", () => {
   const copyLink = apiLink.textContent;
@@ -187,6 +198,51 @@ document.getElementById("copy-url").addEventListener("click", () => {
     alert("No URL to copy!");
   }
 });
+
+// create header row
+function createHeader(parent = headersContainer) {
+  const row = document.createElement("div");
+  row.classList.add("header-row");
+
+  const keyInput = document.createElement("input");
+  keyInput.placeholder = "Header key";
+
+  const valInput = document.createElement("input");
+  valInput.placeholder = "Header value";
+
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = "x";
+  removeBtn.type = "button";
+  removeBtn.classList.add("remove-btn");
+
+  removeBtn.onclick = (e) => {
+    e.preventDefault();
+    parent.removeChild(row);
+    updatePreview();
+  };
+
+  [keyInput, valInput].forEach((el) =>
+    el.addEventListener("input", updatePreview)
+  );
+
+  row.appendChild(keyInput);
+  row.appendChild(valInput);
+  row.appendChild(removeBtn);
+
+  parent.appendChild(row);
+}
+
+function buildHeaders(container) {
+  const headers = [];
+  [...container.querySelectorAll(".header-row")].forEach((row) => {
+    const key = row.children[0].value.trim();
+    const val = row.children[1].value.trim();
+    if (key && val) {
+      headers.push(`${key}:${val}`);
+    }
+  });
+  return headers;
+}
 
 // init
 createField();

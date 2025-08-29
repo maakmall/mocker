@@ -74,15 +74,15 @@ button:hover {
   padding-bottom: 0.25rem;
 }
 
-.field-row {
+.field-row,
+.header-row {
   display: flex;
   gap: 1rem;
   margin-bottom: .5rem;
   align-items: center;
 }
 
-.field-row input,
-.field-row select {
+input, select {
   padding: .4rem;
   border: 1px solid #ccc;
   border-radius: 6px;
