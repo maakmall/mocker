@@ -1,6 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import express from "express";
+import cors from "cors";
 import mustacheExpress from "mustache-express";
 import router from "./routes.js";
 import {
@@ -48,7 +49,7 @@ class Application {
 
   getGlobalMiddleware() {
     return {
-      before: [express.json(), express.static("public")],
+      before: [cors(), express.json(), express.static("public")],
       after: [NotFoundMiddleware, ServerErrorMiddleware],
     };
   }
