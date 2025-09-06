@@ -13,18 +13,6 @@ export default class FakerService {
 
   generate(schema) {
     const traverse = (sc) => {
-      // case: direct string → faker function without param
-      if (typeof sc === "string") {
-        const [namespace, method] = sc.split(".");
-        if (
-          this.faker[namespace] &&
-          typeof this.faker[namespace][method] === "function"
-        ) {
-          return this.faker[namespace][method]();
-        }
-        throw new Error(`Invalid faker type: ${sc}`);
-      }
-
       // case: object { type, params }
       if (typeof sc === "object" && sc !== null && sc.type) {
         const [namespace, method] = sc.type.split(".");
@@ -36,7 +24,7 @@ export default class FakerService {
             if (Array.isArray(sc.params)) {
               // ordered params
               return this.faker[namespace][method](...sc.params);
-            } else if (typeof sc.params === "object") {
+            } else if (typeof sc.params === "object" && Object.keys(sc.params).length !== 0) {
               // named params
               return this.faker[namespace][method](sc.params);
             }
