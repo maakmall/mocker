@@ -1,4 +1,4 @@
-import { Faker, allLocales } from "@faker-js/faker";
+import { Faker, FakerError, allLocales } from "@faker-js/faker";
 
 export default class FakerService {
   constructor() {
@@ -24,7 +24,10 @@ export default class FakerService {
             if (Array.isArray(sc.params)) {
               // ordered params
               return this.faker[namespace][method](...sc.params);
-            } else if (typeof sc.params === "object" && Object.keys(sc.params).length !== 0) {
+            } else if (
+              typeof sc.params === "object" &&
+              Object.keys(sc.params).length !== 0
+            ) {
               // named params
               return this.faker[namespace][method](sc.params);
             }
@@ -32,7 +35,7 @@ export default class FakerService {
           // without param
           return this.faker[namespace][method]();
         }
-        throw new Error(`Invalid faker type: ${sc.type}`);
+        throw new FakerError(`Invalid faker type ${sc.type}`);
       }
 
       // case: object → recurse child

@@ -1,3 +1,5 @@
+import SchemaError from "../Exceptions/SchemaError.js";
+
 export default class SchemaParserService {
   parse(schemaString) {
     try {
@@ -64,7 +66,7 @@ export default class SchemaParserService {
 
       return schema;
     } catch {
-      throw new Error("Invalid schema");
+      throw new SchemaError("Invalid schema");
     }
   }
 
@@ -81,7 +83,7 @@ export default class SchemaParserService {
 
       return headers;
     } catch {
-      throw new Error("Invalid schema");
+      throw new SchemaError("Invalid schema");
     }
   }
 }
