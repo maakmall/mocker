@@ -44,13 +44,14 @@ Pass your schema as a query parameter `?s=`. Each field follows the format:
 }
 ```
 
-### Arrays
+### Arrays (using [n], default 1)
 
-`/api?s=items[2].id:string.uuid;items[2].title:commerce.productName
+`/api?s=category[3]:commerce.product;items[2].id:string.uuid;items[2].title:commerce.productName
 `
 
 ```json
 {
+  "category": ["Shoes", "Computer", "Soap"],
   "items": [
     {
       "id": "1d2c3b4a-aaaa-bbbb-cccc-111122223333",

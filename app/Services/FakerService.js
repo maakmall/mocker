@@ -42,11 +42,11 @@ export default class FakerService {
       if (typeof sc === "object" && sc !== null) {
         const result = {};
         for (const key in sc) {
-          const arrayMatch = key.match(/(.+)\[(\d+)\]$/);
+          const arrayMatch = key.match(/(.+)\[(\d*)\]$/);
           if (arrayMatch) {
             // key array format
             const name = arrayMatch[1];
-            const count = parseInt(arrayMatch[2], 10);
+            const count = arrayMatch[2] ? parseInt(arrayMatch[2], 10) : 1; // default 1 if empty
             result[name] = Array.from({ length: count }, () =>
               traverse(sc[key])
             );
